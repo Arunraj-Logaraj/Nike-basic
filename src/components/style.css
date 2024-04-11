@@ -1,0 +1,25 @@
+body {
+  background-color: green;
+}
+
+.parentStyle {
+  width: 50%;
+  height: 70vh;
+  margin: auto;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+button {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: cadetblue;
+}
+
+button:hover {
+  background-color: rgb(168, 216, 218);
+}
