@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addValues, addEdit } from "../ReduxSlice/SliceValues";
-import { v4 as uuid } from "uuid";
-import { useNavigate } from "react-router-dom";
-import dataValues from "../data";
+import { useDispatch, useSelector } from "react-redux";
+import { addValues, editValues } from "../ReduxSlice/SliceValues";
+import { useNavigate } from "react-router";
 
 const EditValues = () => {
   let [name, setName] = useState("");
@@ -13,14 +11,10 @@ const EditValues = () => {
   let dispatch = useDispatch();
   let history = useNavigate();
 
-  let customerData = useSelector((state) => state.customer);
-  let index = customerData.find((item) => item.id == id);
-
-  function handarClick(e) {
+  function handlarClick(e) {
     e.preventDefault();
-
     dispatch(
-      addEdit({
+      editValues({
         id,
         name,
         age,
@@ -30,36 +24,22 @@ const EditValues = () => {
   }
 
   useEffect(() => {
-    const storedId = localStorage.getItem("id");
-    const storedName = localStorage.getItem("Name");
-    const storedAge = localStorage.getItem("Age");
-
-    setId(storedId);
-    setName(storedName);
-    setAge(storedAge);
+    setName(localStorage.getItem("Name"));
+    setAge(localStorage.getItem("Age"));
+    setId(localStorage.getItem("id"));
   }, []);
 
   return (
     <div>
-      <label htmlFor="">Name</label>
-      <br />
       <input
         type="text"
-        id="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <br />
-      <label htmlFor="">Age</label>
+      <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
       <br />
-      <input
-        type="text"
-        id="age"
-        value={age}
-        onChange={(e) => setAge(e.target.value)}
-      />
-      <br />
-      <button onClick={(e) => handarClick(e)}>CREATE</button>
+      <button onClick={(e) => handlarClick(e)}>EDIT</button>
     </div>
   );
 };

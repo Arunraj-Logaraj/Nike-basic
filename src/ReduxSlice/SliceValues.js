@@ -1,28 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import dataValues from "../data";
+import dataValues from "./../data";
 
 let initialState = dataValues;
-let SliceValues = createSlice({
-  name: "customer",
+
+let sliceValues = createSlice({
+  name: "customerName",
   initialState,
   reducers: {
     addValues(state, action) {
       state.push(action.payload);
     },
     deleteValues(state, action) {
-      let deleteValue = state.filter((item) => item.id !== action.payload);
-      return deleteValue;
+      let returnId = state.filter((item) => item.id !== action.payload);
+      return returnId;
     },
-    addEdit(state, action) {
-      const { id, name, age } = action.payload;
-      const existingUser = state.find((item) => item.id == id);
-      if (existingUser) {
-        existingUser.name = name;
-        existingUser.age = age;
+    editValues(state, action) {
+      let { id, name, age } = action.payload;
+      let exisitedCode = state.find((item) => item.id == id);
+      if (exisitedCode) {
+        exisitedCode.name = name;
+        exisitedCode.age = age;
       }
     },
   },
 });
 
-export const { addValues, deleteValues, addEdit } = SliceValues.actions;
-export default SliceValues.reducer;
+export const { addValues, deleteValues, editValues } = sliceValues.actions;
+export default sliceValues.reducer;

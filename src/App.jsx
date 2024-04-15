@@ -1,11 +1,11 @@
 import { useState } from "react";
-import "./components/style.css";
 import HomePage from "./components/HomePage";
-import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
 import DisplayValues from "./components/DisplayValues";
 import EditValues from "./components/EditValues";
-import store from "./store";
+// import "./components/style.css";
 
 function App() {
   return (

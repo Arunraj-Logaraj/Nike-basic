@@ -1,60 +1,53 @@
 import React from "react";
-import dataValues from "../data";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteValues } from "../ReduxSlice/SliceValues";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   let customer = useSelector((state) => state.customer);
   let dispatch = useDispatch();
+  let history = useNavigate();
 
   function handlarDelete(id) {
-    dispatch(deleteValues(Array.isArray(id) ? id.map((idItem) => idItem) : id));
+    dispatch(deleteValues(id));
+    history("/");
   }
 
-  function handlarEdit(id, name, age) {
+  function handleEdit(id, name, age) {
     localStorage.setItem("id", id);
     localStorage.setItem("Name", name);
     localStorage.setItem("Age", age);
   }
 
   return (
-    <div className="parentStyle">
+    <div>
       <Link to="/create">
         <button>CREATE</button>
       </Link>
-
       <table>
         <tr>
-          <div>
-            <th>NAME</th>
-            <th>AGE</th>
-          </div>
+          <th>NAME</th>
+          <th>AGE</th>
         </tr>
-        <tr>
-          {customer.length > 0
-            ? customer.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <td>{item.name}</td>
-                    <td>{item.age}</td>
-                    <Link to="/edit">
-                      <button
-                        onClick={() =>
-                          handlarEdit(item?.id, item?.name, item?.age)
-                        }
-                      >
-                        EDIT
-                      </button>
-                    </Link>
-                    <button onClick={() => handlarDelete(item.id)}>
-                      DELETE
+        {customer.length > 0
+          ? customer.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <Link to="/edit">
+                    <button
+                      onClick={() => handleEdit(item.id, item.name, item.age)}
+                    >
+                      EDIT
                     </button>
-                  </div>
-                );
-              })
-            : "NO"}
-        </tr>
+                  </Link>
+                  <button onClick={() => handlarDelete(item.id)}>DELETE</button>
+                </tr>
+              );
+            })
+          : "NO"}
       </table>
     </div>
   );
