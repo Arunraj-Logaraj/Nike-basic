@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import SliceValues from "./ReduxSlice/SliceValues";
+import SliceValues from "./SliceValues";
 
 let store = configureStore({
   devTools: true,
   reducer: {
-    customer: SliceValues,
+    cart: SliceValues,
   },
 });
 
